@@ -9,8 +9,10 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.BasicDBObject;
+import java.awt.Font;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -294,6 +296,17 @@ public class EditDocument extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        UIManager.put("OptionPane.messageFont", new Font("Microsoft Sans Serif", Font.PLAIN, 14));
+        if (txtEmpId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "กรอกข้อมูลรหัส Employee ที่ต้องการแก้ไข");
+            return;
+        }
+        
+        if (txtPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "กรอกข้อมูลราคา (Price) ที่ต้องการแก้ไข");
+            return;
+        }
+        
         try {
             int Price = Integer.parseInt(txtPrice.getText());
             String Doctype = cmbDocType.getSelectedItem().toString();
@@ -326,6 +339,7 @@ public class EditDocument extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
+        
         try {
             MongoClient mongo = new MongoClient("localhost", 27017);
             DB db = mongo.getDB("BigC");
